@@ -99,27 +99,39 @@ let formData = [
 
 let signUpFields = document.querySelector("#fields");
 
+
 for (i = 0; i < formData.length; i++){
 
+  var input = document.createElement("input");
 
-  let input = document.createElement("input");
-  
-  input.setAttribute("type", formData[i].type);
-  input.setAttribute("placeholder", formData[i].label);
-  input.setAttribute("id", formData[i].id);
-  input.setAttribute("fa-", formData[i].icon);
+  if (formData[i].label != "Select Language"){
+    if(formData[i].type != 'textarea'){
 
-  signUpFields.appendChild(input);
+    input.setAttribute("type", formData[i].type);
+    input.setAttribute("placeholder", formData[i].label);
+    input.setAttribute("id", formData[i].id);
+    input.setAttribute("fa-", formData[i].icon);
 
+    signUpFields.appendChild(input);
 
+    }
+  }
 
   if (formData[i].options.length > 0){
     let dropdown = document.createElement("select");
+
+    let selectOption = `${formData[i].label}`
+    let option = document.createElement('option');
+    option.setAttribute('selected', "true");
+    option.setAttribute('disabled', "disabled");
+    option.innerHTML = `${selectOption}`;
+
+    dropdown.appendChild(option);
+
   for (a = 0; a < formData[i].options.length; a++){
 
 
     let dropdownOption = document.createElement("option");
-
 
     dropdownOption.setAttribute("value", formData[i].options[a].value);
     dropdownOption.innerHTML = formData[i].options[a].label;
@@ -128,12 +140,19 @@ for (i = 0; i < formData.length; i++){
 
     }
 
+  }
 
+  if (formData[i].type === "textarea"){
+    var textarea = document.createElement("textarea");
+    textarea.setAttribute("placeholder", `${formData[i].label}`);
 
-
+    signUpFields.appendChild(textarea);
   }
 
 
 
 
 }
+
+
+console.log(signUpFields);
